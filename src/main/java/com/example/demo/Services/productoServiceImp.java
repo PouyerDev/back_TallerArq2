@@ -33,5 +33,14 @@ public class productoServiceImp implements productoService {
     public Producto buscarProducto(Long id) {
         return repo.findById(id).orElse(null);
     }
+    @Override
+
+    public Producto actualizarProducto(Producto producto, Long id) {
+        Producto productoExistente = repo.findById(id)
+            .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+        productoExistente.setNombre(producto.getNombre());
+        productoExistente.setPrecio(producto.getPrecio());
+        return repo.save(productoExistente);
+    }
     
 }
